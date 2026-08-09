@@ -1,0 +1,10 @@
+{
+  "name": "aerolinea-app",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm start --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.5"
+  }
+}
