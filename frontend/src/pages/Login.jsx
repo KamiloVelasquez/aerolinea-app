@@ -33,8 +33,11 @@ function Login() {
   return (
     <div className="auth-page">
       <form className="form-card" onSubmit={submit}>
-        <h2>{t('auth.loginTitle')}</h2>
-        <p className="form-subtitle">{t('auth.loginSubtitle')}</p>
+        <div className="auth-brand">
+          <span className="auth-badge">AeroViajes</span>
+          <h2>{t('auth.loginTitle')}</h2>
+          <p className="form-subtitle">{t('auth.loginSubtitle')}</p>
+        </div>
 
         {error && <div className="alert alert-error">❌ {error}</div>}
 
@@ -62,12 +65,12 @@ function Login() {
           />
         </div>
 
-        <button className="btn-search" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
+        <button className="btn-search btn-form-submit" disabled={loading}>
           {loading ? t('auth.loggingIn') : t('auth.loginButton')}
         </button>
 
-        <p style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '0.88rem', color: '#64748b' }}>
-          {t('auth.noAccount')} <Link to="/registro" style={{ color: '#0b5ed7', fontWeight: 600 }}>{t('auth.registerLink')}</Link>
+        <p className="form-footer-text">
+          {t('auth.noAccount')} <Link to="/registro" className="form-footer-link">{t('auth.registerLink')}</Link>
         </p>
       </form>
     </div>
