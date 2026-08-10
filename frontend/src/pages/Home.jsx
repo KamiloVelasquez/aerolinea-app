@@ -18,15 +18,22 @@ function Home() {
 
   const [origenSearch, setOrigenSearch] = useState('Bogotá (BOG)');
   const [destinoSearch, setDestinoSearch] = useState('Madrid (MAD)');
-  const [fechaSearch, setFechaSearch] = useState('');
-  const [pasajeros, setPasajeros] = useState('');
+  const [fechaIda, setFechaIda] = useState(() => {
+    const today = new Date();
+    return today.toISOString().slice(0, 10);
+  });
+  const [fechaVuelta, setFechaVuelta] = useState(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 7);
+    return tomorrow.toISOString().slice(0, 10);
+  });
+  const [pasajeros, setPasajeros] = useState(t('home.defaultPassengersClass'));
   const [tabActive, setTabActive] = useState('roundtrip');
   const [activeDot, setActiveDot] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setFechaSearch(t('home.defaultDateRange'));
     setPasajeros(t('home.defaultPassengersClass'));
   }, [lang]);
 
@@ -181,20 +188,44 @@ function Home() {
 
             <div className="input-box">
               <label>{t('home.dates')}</label>
-              <input
-                type="text"
-                value={fechaSearch}
-                onChange={(e) => setFechaSearch(e.target.value)}
-              />
+              <div style={{ display: 'grid', gap: '0.75rem' }}>
+                <input
+                  type="date"
+                  className="form-input"
+                  value={fechaIda}
+                  onChange={(e) => setFechaIda(e.target.value)}
+                  min={new Date().toISOString().slice(0, 10)}
+                />
+                <input
+                  type="date"
+                  className="form-input"
+                  value={fechaVuelta}
+                  onChange={(e) => setFechaVuelta(e.target.value)}
+                  min={fechaIda}
+                />
+              </div>
             </div>
 
             <div className="input-box">
               <label>{t('home.passengersAndClass')}</label>
-              <input
-                type="text"
+              <select
+                className="form-input"
                 value={pasajeros}
                 onChange={(e) => setPasajeros(e.target.value)}
-              />
+              >
+                <option value={t('home.defaultPassengersClass')}>
+                  {t('home.defaultPassengersClass')}
+                </option>
+                <option value={t('home.passengers2Economy')}>
+                  {t('home.passengers2Economy')}
+                </option>
+                <option value={t('home.passengers1Business')}>
+                  {t('home.passengers1Business')}
+                </option>
+                <option value={t('home.passengers2Business')}>
+                  {t('home.passengers2Business')}
+                </option>
+              </select>
             </div>
 
             <button className="btn-search" type="submit">

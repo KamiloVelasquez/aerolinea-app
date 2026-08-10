@@ -244,7 +244,7 @@ body {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-light);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .search-tabs {
@@ -317,6 +317,7 @@ body {
   margin-bottom: 0.15rem;
 }
 
+
 .input-box input, .input-box select {
   width: 100%;
   border: none;
@@ -326,6 +327,18 @@ body {
   font-weight: 600;
   color: var(--text-dark);
   outline: none;
+}
+
+.input-box input[type="date"] {
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 0.9rem;
+}
+
+.input-box input[type="date"]:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(11, 94, 215, 0.12);
 }
 
 .btn-swap {
