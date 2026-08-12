@@ -193,6 +193,7 @@ function Admin() {
                   <p>{t('admin.noFlightsDescription')}</p>
                 </div>
               ) : (
+                <div className="table-responsive">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -224,6 +225,7 @@ function Admin() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               )}
             </div>
           )}
@@ -237,6 +239,7 @@ function Admin() {
                   <p>{t('admin.noReservationsDescription')}</p>
                 </div>
               ) : (
+                <div className="table-responsive">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -263,6 +266,7 @@ function Admin() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               )}
             </div>
           )}

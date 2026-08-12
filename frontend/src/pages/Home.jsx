@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { LanguageContext } from '../contexts/LanguageContext';
+import DateRangePicker from '../components/DateRangePicker';
 
 const API = 'http://localhost:5000/api';
 
@@ -12,6 +13,7 @@ function Home() {
   const [error, setError] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [reservando, setReservando] = useState(null);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   
   // Search state
   const { t, lang } = useContext(LanguageContext);
@@ -164,52 +166,60 @@ function Home() {
 
           {/* Form */}
           <form className="search-form" onSubmit={handleBuscarVuelos}>
-            <div className="input-box">
-              <label>{t('home.origin')}</label>
-              <input
-                type="text"
-                value={origenSearch}
-                onChange={(e) => setOrigenSearch(e.target.value)}
-              />
-            </div>
-
-            <button type="button" className="btn-swap" onClick={swapCities} title={t('home.swapTitle') || 'Swap origin/destination'}>
-              ⇄
-            </button>
-
-            <div className="input-box">
-              <label>{t('home.destination')}</label>
-              <input
-                type="text"
-                value={destinoSearch}
-                onChange={(e) => setDestinoSearch(e.target.value)}
-              />
-            </div>
-
-            <div className="input-box">
-              <label>{t('home.dates')}</label>
-              <div style={{ display: 'grid', gap: '0.75rem' }}>
+            <div className="search-route-group">
+              <div className="input-box">
+                <label>{t('home.origin')}</label>
                 <input
-                  type="date"
-                  className="form-input"
-                  value={fechaIda}
-                  onChange={(e) => setFechaIda(e.target.value)}
-                  min={new Date().toISOString().slice(0, 10)}
+                  type="text"
+                  value={origenSearch}
+                  onChange={(e) => setOrigenSearch(e.target.value)}
+                  placeholder="Bogotá (BOG)"
                 />
+              </div>
+
+              <button type="button" className="btn-swap" onClick={swapCities} title={t('home.swapTitle') || 'Swap origin/destination'}>
+                ⇄
+              </button>
+
+              <div className="input-box">
+                <label>{t('home.destination')}</label>
                 <input
-                  type="date"
-                  className="form-input"
-                  value={fechaVuelta}
-                  onChange={(e) => setFechaVuelta(e.target.value)}
-                  min={fechaIda}
+                  type="text"
+                  value={destinoSearch}
+                  onChange={(e) => setDestinoSearch(e.target.value)}
+                  placeholder="Madrid (MAD)"
                 />
               </div>
             </div>
 
-            <div className="input-box">
+            {/* Campo unificado de fechas tipo Booking */}
+            <div className="input-box booking-date-box" onClick={() => setIsDatePickerOpen(true)}>
+              <label>{t('home.dates')}</label>
+              <div className="booking-date-value">
+                <span>📅 {fechaIda ? fechaIda : '----/--/--'}</span>
+                {tabActive === 'roundtrip' && (
+                  <span> → {fechaVuelta ? fechaVuelta : '----/--/--'}</span>
+                )}
+              </div>
+            </div>
+
+            {/* Modal / Popover del Calendario Unificado */}
+            <DateRangePicker
+              isOpen={isDatePickerOpen}
+              fechaIda={fechaIda}
+              fechaVuelta={fechaVuelta}
+              isRoundTrip={tabActive === 'roundtrip'}
+              onSelectDates={({ fechaIda: fIda, fechaVuelta: fVuelta }) => {
+                if (fIda) setFechaIda(fIda);
+                if (fVuelta) setFechaVuelta(fVuelta);
+              }}
+              onClose={() => setIsDatePickerOpen(false)}
+            />
+
+            <div className="input-box search-passengers-box">
               <label>{t('home.passengersAndClass')}</label>
               <select
-                className="form-input"
+                className="select-input"
                 value={pasajeros}
                 onChange={(e) => setPasajeros(e.target.value)}
               >

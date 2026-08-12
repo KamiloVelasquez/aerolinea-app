@@ -7,6 +7,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showInfoDropdown, setShowInfoDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { lang, toggleLang, t } = useContext(LanguageContext);
 
   useEffect(() => {
@@ -20,12 +21,16 @@ function Navbar() {
     } else {
       setUser(null);
     }
+    // Cerrar menú móvil en cambio de ruta
+    setMobileMenuOpen(false);
+    setShowInfoDropdown(false);
   }, [location]);
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
+    setMobileMenuOpen(false);
     navigate('/');
   };
 
@@ -33,6 +38,7 @@ function Navbar() {
 
   const triggerCheckIn = (e) => {
     e.preventDefault();
+    setMobileMenuOpen(false);
     window.dispatchEvent(new CustomEvent('open-checkin'));
   };
 
@@ -48,139 +54,173 @@ function Navbar() {
     }));
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setShowInfoDropdown(false);
+  };
+
   return (
-    <div className="navbar-container">
-      <nav className="navbar">
-        <Link to="/" className="navbar-brand">
+    <header className="navbar-container">
+      <nav className="navbar" aria-label="Navegación principal">
+        <Link to="/" className="navbar-brand" onClick={closeMobileMenu}>
           <span className="brand-icon">✈️</span>
           <span>AeroViajes</span>
         </Link>
 
-        <ul className="nav-menu">
-          <li>
-            <Link to="/" className={`nav-link ${isActive('/')}`}>
-              {t('navbar.flights')}
-            </Link>
-          </li>
+        {/* Botón menú hamburguesa para dispositivos móviles */}
+        <button
+          type="button"
+          className="nav-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-expanded={mobileMenuOpen}
+          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+        >
+          {mobileMenuOpen ? '✕' : '☰'}
+        </button>
 
-          <li>
-            <a
-              href="#ofertas"
-              className="nav-link"
-              onClick={(e) => {
-                e.preventDefault();
-                if (location.pathname !== '/') navigate('/');
-                setTimeout(() => {
-                  const el = document.getElementById('ofertas-section');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-            >
-              {t('navbar.offers')}
-            </a>
-          </li>
-
-          {user && (
+        {/* Contenedor colapsable del menú */}
+        <div className={`navbar-collapse ${mobileMenuOpen ? 'open' : ''}`}>
+          <ul className="nav-menu">
             <li>
-              <Link to="/mis-reservas" className={`nav-link ${isActive('/mis-reservas')}`}>
-                {t('navbar.myReservations')}
+              <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMobileMenu}>
+                {t('navbar.flights')}
               </Link>
             </li>
-          )}
 
-          <li>
-            <a href="#checkin" className="nav-link" onClick={triggerCheckIn}>
-              {t('navbar.checkIn')}
-            </a>
-          </li>
-
-          <li
-            style={{ position: 'relative' }}
-            onMouseEnter={() => setShowInfoDropdown(true)}
-            onMouseLeave={() => setShowInfoDropdown(false)}
-          >
-            <a href="#info" className="nav-link" onClick={(e) => e.preventDefault()}>
-              {t('navbar.information')} <span style={{ fontSize: '0.7rem' }}>▼</span>
-            </a>
-
-            {showInfoDropdown && (
-              <div className="nav-dropdown">
-                <a href="#equipaje" onClick={(e) => {
-                  e.preventDefault();
-                  window.dispatchEvent(new CustomEvent('open-infomodal', {
-                    detail: {
-                      title: t('navbar.baggagePolicyTitle'),
-                      body: t('navbar.baggagePolicyBody'),
-                      icon: '🧳'
-                    }
-                  }));
-                }}>
-                  🧳 {t('navbar.baggagePolicyTitle')}
-                </a>
-                <a href="#estado" onClick={(e) => {
-                  e.preventDefault();
-                  window.dispatchEvent(new CustomEvent('open-infomodal', {
-                    detail: {
-                      title: t('navbar.flightStatusTitle'),
-                      body: t('navbar.flightStatusBody'),
-                      icon: '🛫'
-                    }
-                  }));
-                }}>
-                  🛫 {t('navbar.flightStatusTitle')}
-                </a>
-                <a href="#soporte" onClick={(e) => {
-                  e.preventDefault();
-                  window.dispatchEvent(new CustomEvent('open-infomodal', {
-                    detail: {
-                      title: t('navbar.supportCenterTitle'),
-                      body: t('navbar.supportCenterBody'),
-                      icon: '📞'
-                    }
-                  }));
-                }}>
-                  📞 {t('navbar.supportCenterTitle')}
-                </a>
-              </div>
-            )}
-          </li>
-
-          {user && user.rol === 'admin' && (
             <li>
-              <Link to="/admin" className={`nav-link ${isActive('/admin')}`}>
-                ⚙️ Admin
-              </Link>
-            </li>
-          )}
-        </ul>
-
-        <div className="nav-right">
-          <div className="lang-selector" onClick={onToggleLang} title={t('navbar.changeLang')}>
-            🌐 {lang} <span style={{ fontSize: '0.7rem' }}>▼</span>
-          </div>
-
-          {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-              <span style={{ color: 'white', fontSize: '0.88rem', fontWeight: 600 }}>
-                👤 {user.nombre}
-              </span>
-              <button
-                onClick={logout}
-                className="btn-nav-auth"
-                style={{ cursor: 'pointer', background: 'transparent' }}
+              <a
+                href="#ofertas"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeMobileMenu();
+                  if (location.pathname !== '/') navigate('/');
+                  setTimeout(() => {
+                    const el = document.getElementById('ofertas-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               >
-                {t('navbar.logout')}
+                {t('navbar.offers')}
+              </a>
+            </li>
+
+            {user && (
+              <li>
+                <Link to="/mis-reservas" className={`nav-link ${isActive('/mis-reservas')}`} onClick={closeMobileMenu}>
+                  {t('navbar.myReservations')}
+                </Link>
+              </li>
+            )}
+
+            <li>
+              <a href="#checkin" className="nav-link" onClick={triggerCheckIn}>
+                {t('navbar.checkIn')}
+              </a>
+            </li>
+
+            <li
+              className="nav-dropdown-item"
+              onMouseEnter={() => setShowInfoDropdown(true)}
+              onMouseLeave={() => setShowInfoDropdown(false)}
+            >
+              <button
+                type="button"
+                className="nav-link nav-dropdown-btn"
+                onClick={() => setShowInfoDropdown(!showInfoDropdown)}
+                aria-expanded={showInfoDropdown}
+              >
+                {t('navbar.information')} <span className="caret-icon">▼</span>
               </button>
-            </div>
-          ) : (
-            <Link to="/login" className="btn-nav-auth">
-              {t('navbar.login')}
-            </Link>
-          )}
+
+              {showInfoDropdown && (
+                <div className="nav-dropdown">
+                  <a href="#equipaje" onClick={(e) => {
+                    e.preventDefault();
+                    closeMobileMenu();
+                    window.dispatchEvent(new CustomEvent('open-infomodal', {
+                      detail: {
+                        title: t('navbar.baggagePolicyTitle'),
+                        body: t('navbar.baggagePolicyBody'),
+                        icon: '🧳'
+                      }
+                    }));
+                  }}>
+                    🧳 {t('navbar.baggagePolicyTitle')}
+                  </a>
+                  <a href="#estado" onClick={(e) => {
+                    e.preventDefault();
+                    closeMobileMenu();
+                    window.dispatchEvent(new CustomEvent('open-infomodal', {
+                      detail: {
+                        title: t('navbar.flightStatusTitle'),
+                        body: t('navbar.flightStatusBody'),
+                        icon: '🛫'
+                      }
+                    }));
+                  }}>
+                    🛫 {t('navbar.flightStatusTitle')}
+                  </a>
+                  <a href="#soporte" onClick={(e) => {
+                    e.preventDefault();
+                    closeMobileMenu();
+                    window.dispatchEvent(new CustomEvent('open-infomodal', {
+                      detail: {
+                        title: t('navbar.supportCenterTitle'),
+                        body: t('navbar.supportCenterBody'),
+                        icon: '📞'
+                      }
+                    }));
+                  }}>
+                    📞 {t('navbar.supportCenterTitle')}
+                  </a>
+                </div>
+              )}
+            </li>
+
+            {user && user.rol === 'admin' && (
+              <li>
+                <Link to="/admin" className={`nav-link ${isActive('/admin')}`} onClick={closeMobileMenu}>
+                  ⚙️ Admin
+                </Link>
+              </li>
+            )}
+          </ul>
+
+          <div className="nav-right">
+            <button
+              type="button"
+              className="lang-selector"
+              onClick={onToggleLang}
+              title={t('navbar.changeLang')}
+            >
+              🌐 {lang} <span className="caret-icon">▼</span>
+            </button>
+
+            {user ? (
+              <div className="nav-user-block">
+                <span className="nav-user-name">
+                  👤 {user.nombre}
+                </span>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="btn-nav-auth"
+                >
+                  {t('navbar.logout')}
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="btn-nav-auth" onClick={closeMobileMenu}>
+                {t('navbar.login')}
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
-    </div>
+    </header>
   );
 }
 
 export default Navbar;
+

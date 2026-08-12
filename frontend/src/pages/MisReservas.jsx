@@ -106,12 +106,12 @@ function MisReservas() {
 
   return (
     <section className="main-container" style={{ marginTop: '2.5rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <div className="page-header-row">
         <div>
           <h2 className="section-title" style={{ marginBottom: '0.2rem' }}>{t('reservas.title')}</h2>
-          <p style={{ color: '#64748b', fontSize: '0.92rem' }}>{t('reservas.subtitle')}</p>
+          <p className="section-subtitle" style={{ marginBottom: 0 }}>{t('reservas.subtitle')}</p>
         </div>
-        <Link to="/" className="btn-outline-blue" style={{ width: 'auto', padding: '0.6rem 1.2rem', textDecoration: 'none' }}>
+        <Link to="/" className="btn-outline-blue page-header-action">
           {t('reservas.reserveNew')}
         </Link>
       </div>
@@ -185,15 +185,13 @@ function MisReservas() {
                   </div>
                   <div className="ticket-buttons">
                     <button 
-                      className="btn-search" 
-                      style={{ height: '42px', padding: '0 1.2rem', fontSize: '0.86rem' }}
+                      className="btn-search btn-bp-action" 
                       onClick={() => verPase(r)}
                     >
                       {t('reservas.boardingPass')}
                     </button>
                     <button 
-                      className="btn-outline-blue" 
-                      style={{ borderColor: '#e11d48', color: '#e11d48', height: '42px', padding: '0 1.2rem', fontSize: '0.86rem' }}
+                      className="btn-outline-blue btn-cancel-trip" 
                       onClick={() => cancelarReserva(r.id)}
                       disabled={cancelingId === r.id}
                     >

@@ -37,9 +37,12 @@ function Register() {
 
   return (
     <div className="auth-page">
-      <form className="glass-form" onSubmit={submit}>
-        <h2>{t('auth.registerTitle')}</h2>
-        <p className="form-subtitle">{t('auth.registerSubtitle')}</p>
+      <form className="form-card" onSubmit={submit}>
+        <div className="auth-brand">
+          <span className="auth-badge">AeroViajes</span>
+          <h2>{t('auth.registerTitle')}</h2>
+          <p className="form-subtitle">{t('auth.registerSubtitle')}</p>
+        </div>
 
         {error && <div className="alert alert-error">❌ {error}</div>}
 
@@ -80,12 +83,12 @@ function Register() {
           />
         </div>
 
-        <button className="btn btn-primary btn-full" disabled={loading}>
+        <button className="btn-search btn-form-submit" disabled={loading}>
           {loading ? t('auth.creatingAccount') : t('auth.registerButton')}
         </button>
 
-        <p className="form-footer">
-          {t('auth.alreadyHaveAccount')} <Link to="/login">{t('auth.loginNow')}</Link>
+        <p className="form-footer-text">
+          {t('auth.alreadyHaveAccount')} <Link to="/login" className="form-footer-link">{t('auth.loginNow')}</Link>
         </p>
       </form>
     </div>
