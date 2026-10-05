@@ -1,30 +1,28 @@
-import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { LanguageContext } from '../contexts/LanguageContext';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const API = 'http://localhost:5000/api';
+const API = "http://localhost:5000/api";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { t } = useContext(LanguageContext);
 
-  const submit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/auth/login`, { email, password });
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-      navigate('/');
+      const { data } = await axios.post(`${API}/auth/login`, { email, password });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate(data.user?.rol === "admin" ? "/admin" : "/mis-reservas");
     } catch (err) {
-      setError(err.response?.data?.error || t('auth.errorConnection'));
+      setError(err.response?.data?.error || "Error al iniciar sesion");
     } finally {
       setLoading(false);
     }
@@ -32,49 +30,49 @@ function Login() {
 
   return (
     <div className="auth-page">
-      <form className="form-card" onSubmit={submit}>
+      <form className="form-card" onSubmit={handleLogin}>
         <div className="auth-brand">
           <span className="auth-badge">AeroViajes</span>
-          <h2>{t('auth.loginTitle')}</h2>
-          <p className="form-subtitle">{t('auth.loginSubtitle')}</p>
+          <h2>Iniciar sesion</h2>
+          <p className="form-subtitle">Accede segun tu rol de usuario.</p>
         </div>
 
         {error && <div className="alert alert-error">❌ {error}</div>}
 
         <div className="form-group">
-          <label>{t('auth.emailLabel')}</label>
-          <input
-            type="email"
-            className="form-input"
-            placeholder={t('auth.emailPlaceholder')}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
+          <label>Email</label>
+        <input
+          type="email"
+          placeholder="Correo"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-input"
+          required
+        />
         </div>
 
         <div className="form-group">
-          <label>{t('auth.passwordLabel')}</label>
-          <input
-            type="password"
-            className="form-input"
-            placeholder={t('auth.passwordPlaceholder')}
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <label>Contraseña</label>
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-input"
+          required
+        />
         </div>
 
         <button className="btn-search btn-form-submit" disabled={loading}>
-          {loading ? t('auth.loggingIn') : t('auth.loginButton')}
+          {loading ? "Ingresando..." : "Ingresar"}
         </button>
 
         <p className="form-footer-text">
-          {t('auth.noAccount')} <Link to="/registro" className="form-footer-link">{t('auth.registerLink')}</Link>
+          ¿No tienes cuenta? <Link to="/register" className="form-footer-link">Registrate</Link>
         </p>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

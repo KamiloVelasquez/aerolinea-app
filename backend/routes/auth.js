@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req, res) => {
-  const { nombre, email, password } = req.body;
+  const { nombre, email, password, rol } = req.body;
+  const userRole = rol === 'admin' ? 'admin' : 'user';
 
   if (!nombre || !email || !password) {
     return res.status(400).json({ error: 'Todos los campos son requeridos' });
@@ -14,8 +15,8 @@ router.post('/register', async (req, res) => {
   const hash = await bcrypt.hash(password, 10);
 
   db.query(
-    'INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, "user")',
-    [nombre, email, hash],
+    'INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)',
+    [nombre, email, hash, userRole],
     (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {

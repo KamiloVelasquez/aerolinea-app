@@ -24,6 +24,7 @@ function App() {
               <Route path="/registro" element={<Register />} />
               <Route path="/mis-reservas" element={<MisReservas />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </div>
           <Footer />
