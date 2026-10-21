@@ -1,5 +1,5 @@
 const POWERBI_URL =
-  "https://app.powerbi.com/groups/me/reports/fc14d5d2-2370-4328-9683-ee472452efc2/Resumen?experience=power-bi";
+  "https://app.powerbi.com/reportEmbed?reportId=fc14d5d2-2370-4328-9683-ee472452efc2&autoAuth=true&ctid=9e711612-11fe-4bac-bb0d-3817850da69e";
 
 const Admin = () => {
   return (
@@ -48,6 +48,10 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+
+
 
 
 /* const POWERBI_IMAGE = "/dash1.png";
