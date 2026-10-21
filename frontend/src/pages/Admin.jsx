@@ -46,7 +46,8 @@ const Admin = () => {
 export default Admin; */
 
 
-const POWERBI_IMAGE = "/maquetacion de BI.png";
+const POWERBI_IMAGE = "/dash1.png";
+const POWERBI_IMAGE2 = "/dash2.png";
 
 const Admin = () => {
   return (
@@ -63,8 +64,20 @@ const Admin = () => {
       }}>
         <h2>Tablero Power BI</h2>
 
-        <img
+                <img
           src={POWERBI_IMAGE}
+          alt="Maquetacion del tablero Power BI"
+          style={{
+            width: "100%",
+            maxHeight: "720px",
+            objectFit: "contain",
+            borderRadius: "8px",
+            border: "1px solid #e2e8f0"
+          }}
+        />
+
+        <img
+          src={POWERBI_IMAGE2}
           alt="Maquetacion del tablero Power BI"
           style={{
             width: "100%",
