@@ -1,9 +1,15 @@
 const POWERBI_URL =
-  "https://app.powerbi.com/reportEmbed?reportId=fc14d5d2-2370-4328-9683-ee472452efc2&autoAuth=true&ctid=9e711612-11fe-4bac-bb0d-3817850da69e";
+  "https://app.powerbi.com/reportEmbed?reportId=fc14d5d2-2370-4328-9683-ee472452efc2&autoAuth=true&ctid=9e711612-11fe-4bac-bb0d-3817850da69e&actionBarEnabled=true&reportCopilotInEmbed=true";
 
 const Admin = () => {
   return (
-    <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "24px" }}>
+    <section
+      style={{
+        maxWidth: "1200px",
+        margin: "0 auto",
+        padding: "24px",
+      }}
+    >
       <h1>Módulo de administración</h1>
       <p>Espacio para integrar el tablero de Power BI.</p>
 
@@ -20,12 +26,16 @@ const Admin = () => {
 
         {POWERBI_URL ? (
           <iframe
-            title="Power BI Dashboard"
+            title="AeroViajes"
             src={POWERBI_URL}
             width="100%"
-            height="620"
-            style={{ border: 0, borderRadius: "8px" }}
+            height="541"
+            frameBorder="0"
             allowFullScreen
+            style={{
+              border: 0,
+              borderRadius: "8px",
+            }}
           />
         ) : (
           <div
