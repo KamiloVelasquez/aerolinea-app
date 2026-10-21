@@ -1,23 +1,24 @@
-/*const POWERBI_URL = "https://app.powerbi.com/reportEmbed?...";
-const POWERBI_IMAGE = "../maquetacion de BI.png";
-
+const POWERBI_URL =
+  "https://app.powerbi.com/groups/me/reports/fc14d5d2-2370-4328-9683-ee472452efc2/Resumen?experience=power-bi";
 
 const Admin = () => {
   return (
     <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "24px" }}>
-      <h1>Modulo de administracion</h1>
+      <h1>Módulo de administración</h1>
       <p>Espacio para integrar el tablero de Power BI.</p>
 
-      <div style={{
-        background: "#ffffff",
-        border: "1px solid #e2e8f0",
-        borderRadius: "8px",
-        padding: "18px",
-        marginTop: "20px"
-      }}>
+      <div
+        style={{
+          background: "#ffffff",
+          border: "1px solid #e2e8f0",
+          borderRadius: "8px",
+          padding: "18px",
+          marginTop: "20px",
+        }}
+      >
         <h2>Tablero Power BI</h2>
 
-        {/* {POWERBI_URL ? (
+        {POWERBI_URL ? (
           <iframe
             title="Power BI Dashboard"
             src={POWERBI_URL}
@@ -27,26 +28,29 @@ const Admin = () => {
             allowFullScreen
           />
         ) : (
-          <div style={{
-            minHeight: "420px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px dashed #cbd5e1",
-            borderRadius: "8px",
-            color: "#64748b"
-          }}>
-            Aqui se mostrara el tablero cuando pegues el enlace de Power BI.
+          <div
+            style={{
+              minHeight: "420px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "1px dashed #cbd5e1",
+              borderRadius: "8px",
+              color: "#64748b",
+            }}
+          >
+            Aquí se mostrará el tablero cuando pegues el enlace de Power BI.
           </div>
-        )}}
+        )}
       </div>
     </section>
   );
 };
-export default Admin; */
+
+export default Admin;
 
 
-const POWERBI_IMAGE = "/dash1.png";
+/* const POWERBI_IMAGE = "/dash1.png";
 const POWERBI_IMAGE2 = "/dash2.png";
 
 const Admin = () => {
@@ -93,4 +97,4 @@ const Admin = () => {
 };
 
 export default Admin;
-
+ */
