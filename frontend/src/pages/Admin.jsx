@@ -63,6 +63,8 @@ export default Admin;
 
 
 
+/* sección comentada para mostrar imágenes de maquetación del tablero de Power BI en lugar del iframe. */
+
 
 /* const POWERBI_IMAGE = "/dash1.png";
 const POWERBI_IMAGE2 = "/dash2.png";

@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ═══════════════════════════════════════════
    Design System — Commercial Airline Theme
    ═══════════════════════════════════════════ */
 
 :root {
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
   /* Brand Colors */
   --nav-bg: #0b2545;
   --nav-bg-dark: #071931;
@@ -45,12 +47,16 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-family);
   background-color: var(--bg-main);
   color: var(--text-dark);
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+  font: inherit;
 }
 
 /* ═══════════════════════════════════════════
@@ -78,8 +84,8 @@ body {
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: 'Outfit', sans-serif;
+  gap: 0.5rem;
+  font-family: var(--font-family);
   font-weight: 800;
   font-size: 1.45rem;
   color: var(--text-white);
@@ -87,8 +93,11 @@ body {
   letter-spacing: -0.02em;
 }
 
-.navbar-brand .brand-icon {
-  font-size: 1.5rem;
+.navbar-brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .nav-menu {
@@ -245,22 +254,34 @@ body {
   margin-bottom: 1.75rem;
 }
 
-.auth-badge {
-  display: inline-flex;
+.auth-logo-link {
+  display: flex;
+  width: min(100%, 280px);
+  height: 110px;
   align-items: center;
-  padding: 0.55rem 0.95rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  background-color: rgba(11,94,215,0.12);
-  color: var(--primary-blue);
-  margin-bottom: 1rem;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.auth-logo-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.auth-brand h2,
+.auth-brand > p {
+  text-align: center;
+}
+
+.auth-brand > p {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .form-card h2 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 2rem;
   margin-bottom: 0.55rem;
 }
@@ -349,7 +370,7 @@ body {
 }
 
 .hero-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: clamp(2.75rem, 5vw, 4.25rem);
   font-weight: 800;
   line-height: 1.05;
@@ -396,7 +417,7 @@ body {
 .tab-btn {
   background: none;
   border: none;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-size: 0.93rem;
   font-weight: 600;
   color: var(--text-body);
@@ -487,7 +508,7 @@ body {
   width: 100%;
   border: none;
   background: transparent;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-dark);
@@ -534,7 +555,7 @@ body {
   border-radius: 18px;
   padding: 0 1.8rem;
   height: 64px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-weight: 700;
   font-size: 0.98rem;
   cursor: pointer;
@@ -610,7 +631,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -656,7 +677,7 @@ body {
 }
 
 .offer-route {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -676,7 +697,7 @@ body {
 }
 
 .offer-price-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--accent-green);
@@ -759,7 +780,7 @@ body {
 }
 
 .promo-box-dark h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -797,7 +818,7 @@ body {
 }
 
 .promo-box-light h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
@@ -889,7 +910,7 @@ body {
 }
 
 .footer-newsletter-content h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   color: white;
   font-size: 1.25rem;
   font-weight: 700;
@@ -952,11 +973,19 @@ body {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.5rem;
   font-weight: 800;
   color: white;
   margin-bottom: 0.8rem;
+  text-decoration: none;
+}
+
+.footer-brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .footer-about {
@@ -989,7 +1018,7 @@ body {
 }
 
 .footer-col h4 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   color: white;
   font-size: 1.05rem;
   font-weight: 700;
@@ -1120,7 +1149,7 @@ body {
 }
 
 .bp-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.1rem;
   font-weight: 800;
 }
@@ -1205,7 +1234,7 @@ body {
 }
 
 .airport-code {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--nav-bg);
@@ -1291,7 +1320,7 @@ body {
 }
 
 .price-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.35rem;
   font-weight: 800;
   color: var(--text-dark);
@@ -1347,7 +1376,7 @@ body {
 }
 
 .admin-panel h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.15rem;
   margin-bottom: 1rem;
 }
@@ -1925,8 +1954,9 @@ body {
     font-size: 1.25rem;
   }
 
-  .navbar-brand .brand-icon {
-    font-size: 1.3rem;
+  .navbar-brand img {
+    width: 38px;
+    height: 38px;
   }
 
   .airport-code {
@@ -2034,7 +2064,7 @@ body {
 }
 
 .dp-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.08rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -2098,7 +2128,7 @@ body {
 }
 
 .dp-month-label {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-family);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -2132,7 +2162,7 @@ body {
   border: none;
   background: transparent;
   border-radius: 50%;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-dark);
@@ -2217,4 +2247,3 @@ body {
   flex: 1;
   border-radius: 14px !important;
 }
-

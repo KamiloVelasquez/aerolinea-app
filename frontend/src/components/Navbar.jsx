@@ -63,7 +63,7 @@ function Navbar() {
     <header className="navbar-container">
       <nav className="navbar" aria-label="Navegación principal">
         <Link to="/" className="navbar-brand" onClick={closeMobileMenu}>
-          <span className="brand-icon">✈️</span>
+          <img src="/image-removebg-preview.png" alt="" />
           <span>AeroViajes</span>
         </Link>
 
@@ -223,4 +223,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

@@ -51,10 +51,10 @@ function Footer() {
       {/* Main Footer Links */}
       <div className="footer-main">
         <div className="footer-col">
-          <div className="footer-brand">
-            <span style={{ fontSize: '1.6rem' }}>✈️</span>
+          <Link to="/" className="footer-brand">
+            <img src="/image-removebg-preview.png" alt="" />
             <span>{t('footer.brandHeading')}</span>
-          </div>
+          </Link>
           <p className="footer-about">
             {t('footer.about')}
           </p>

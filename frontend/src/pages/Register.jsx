@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LanguageContext } from '../contexts/LanguageContext';
 
-const API = 'http://localhost:5000/api';
+const API = `${import.meta.env.VITE_API_URL || ''}/api`;
 
 function Register() {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rol, setRol] = useState('user');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -27,8 +26,8 @@ function Register() {
     setLoading(true);
 
     try {
-      await axios.post(`${API}/auth/register`, { nombre, email, password, rol });
-      navigate('/login');
+      await axios.post(`${API}/auth/register`, { nombre, email, password });
+      navigate('/login', { state: { registrationComplete: true } });
     } catch (err) {
       setError(err.response?.data?.error || t('auth.errorConnection'));
     } finally {
@@ -40,7 +39,9 @@ function Register() {
     <div className="auth-page">
       <form className="form-card" onSubmit={submit}>
         <div className="auth-brand">
-          <span className="auth-badge">AeroViajes</span>
+          <Link to="/" className="auth-logo-link" aria-label="Volver al inicio">
+            <img src="/image-removebg-preview%20(1).png" alt="AeroViajes" />
+          </Link>
           <h2>{t('auth.registerTitle')}</h2>
           <p className="form-subtitle">{t('auth.registerSubtitle')}</p>
         </div>
@@ -55,6 +56,7 @@ function Register() {
             placeholder={t('auth.namePlaceholder')}
             value={nombre}
             onChange={e => setNombre(e.target.value)}
+            maxLength={100}
             required
           />
         </div>
@@ -67,6 +69,7 @@ function Register() {
             placeholder={t('auth.emailPlaceholder')}
             value={email}
             onChange={e => setEmail(e.target.value)}
+            maxLength={150}
             required
           />
         </div>
@@ -81,20 +84,8 @@ function Register() {
             onChange={e => setPassword(e.target.value)}
             required
             minLength={6}
+            autoComplete="new-password"
           />
-        </div>
-
-        <div className="form-group">
-          <label>Rol</label>
-          <select
-            className="form-input"
-            value={rol}
-            onChange={e => setRol(e.target.value)}
-            required
-          >
-            <option value="user">Usuario</option>
-            <option value="admin">Administrador</option>
-          </select>
         </div>
 
         <button className="btn-search btn-form-submit" disabled={loading}>

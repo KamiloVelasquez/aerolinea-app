@@ -77,7 +77,7 @@ function CheckInModal() {
           <>
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
               <span style={{ fontSize: '2.5rem' }}>📱</span>
-              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.6rem', fontWeight: 800, marginTop: '0.5rem' }}>
+              <h2 style={{ fontFamily: 'var(--font-family)', fontSize: '1.6rem', fontWeight: 800, marginTop: '0.5rem' }}>
                 {t('checkIn.title')}
               </h2>
               <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
@@ -120,7 +120,7 @@ function CheckInModal() {
         ) : (
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '2.5rem' }}>🎫</div>
-            <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.4rem', fontWeight: 800, color: '#00875a' }}>
+            <h3 style={{ fontFamily: 'var(--font-family)', fontSize: '1.4rem', fontWeight: 800, color: '#00875a' }}>
               {t('checkIn.successTitle')}
             </h3>
             <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '1.5rem' }}>

@@ -32,7 +32,7 @@ function InfoModal() {
         <button className="modal-close" onClick={closeModal}>✕</button>
         <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
           <span style={{ fontSize: '2.8rem' }}>{content.icon}</span>
-          <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.45rem', fontWeight: 800, marginTop: '0.5rem', color: '#1e293b' }}>
+          <h3 style={{ fontFamily: 'var(--font-family)', fontSize: '1.45rem', fontWeight: 800, marginTop: '0.5rem', color: '#1e293b' }}>
             {content.title}
           </h3>
         </div>

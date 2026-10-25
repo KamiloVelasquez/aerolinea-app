@@ -32,7 +32,9 @@ const Login = () => {
     <div className="auth-page">
       <form className="form-card" onSubmit={handleLogin}>
         <div className="auth-brand">
-          <span className="auth-badge">AeroViajes</span>
+          <Link to="/" className="auth-logo-link" aria-label="Volver al inicio">
+            <img src="/image-removebg-preview%20(1).png" alt="AeroViajes" />
+          </Link>
           <h2>Iniciar sesion</h2>
           <p className="form-subtitle">Accede segun tu rol de usuario.</p>
         </div>
